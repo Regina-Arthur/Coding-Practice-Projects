@@ -1,9 +1,10 @@
 #Greet users and ask for intent to use the system
+print("==========WELCOME TO MY PROGRAM==========")
 print ('Welcome, you can enter student grades for your course.')
-go_ahead = input ('Would you like to enter student grades?(yes/no)\n')
+start_confirmation = input ('Would you like to enter student grades?(yes/no)\n')
 
 #confirm intent to use the system
-if go_ahead.upper() == "YES":
+if start_confirmation.upper() == "YES":
 
     course = input("Please enter the course name: ")
     number_students = int(input("How many students will you be entering? "))
@@ -14,10 +15,10 @@ if go_ahead.upper() == "YES":
     student_name_grade = {}
     for students in range(number_students):
         student = input("Enter a student's name please: ")
-        student_name_grade["student"] = int(input("Please enter their grade: "))
-
-    for student, grade in student_name_grade:
-        print("Student name:", student, "student grade:", grade)
+        student_name_grade[student] = int(input("Please enter their grade: "))
+    print("==========Student And Grade==========")
+    for student, grade in student_name_grade.items():
+        print("Student name:", student, "\nStudent grade:", grade)
 
     error_check = input("Is there any error in the entries: \n ")
     if error_check.upper == "YES":
@@ -59,7 +60,7 @@ if go_ahead.upper() == "YES":
     else:
         print("Then let's continue: ")
 
-elif go_ahead.upper() == "NO":
+elif start_confirmation.upper() == "NO":
     print("We will be here when you need us.")
 
 else:
