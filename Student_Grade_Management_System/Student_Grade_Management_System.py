@@ -20,29 +20,37 @@ if start_confirmation.upper() == "YES":
     for student, grade in student_name_grade.items():
         print("Student name:", student, "\nStudent grade:", grade)
 
-    error_check = input("Is there any error in the entries: \n ")
-    if error_check.upper == "YES":
-        error_in_name = input("Is there an error in the student name? ")
-        if error_in_name.upper == "YES":
+    change_needed = input("Is there any error in the entries:\n")
+    if change_needed.upper() == "YES":
+        change_in_names = input("Is there an error in the student name? ")
+        if change_in_names.upper() == "YES":
             print("These are all of the name.")
-            for student, grade in student_name_grade:
+            for student in student_name_grade.items():
                 print("Student name:", student)
-            key = input("Shall we begin(Yes or No): ")
-            while key.upper == "YES":
-                print("we shall continue this later")
+            nameChange_approval = input("Shall we begin(Yes or No): ")
+            while nameChange_approval.upper() == "YES":
+                studentName_toChange = input("Please enter the wrong student name:\n")
+                student_grade = student_name_grade[studentName_toChange]
+                studentCorrectName = input("Please enter the correct name:\n")
+                student_name_grade[studentCorrectName] = student_grade
+                print(student_name_grade)
+                nameChange_approval = input("Do you want to change another name? YES or NO \n")
 
-        error_in_grade = input("Is there an error in the grade")
-        if error_in_name.upper == "YES":
+        change_in_grades = input("Is there an error in the grade:\n")
+        if change_in_grades.upper() == "YES":
             print("These are all of the name and grades.")
-            for student,grade in student_name_grade:
+            for student, grade in student_name_grade.items():
                 print("Student name:", student, "student grade:", grade)
-            key = input("Shall we begin(Yes or No): ")
-            while key.upper == "YES":
-                print("we shall continue this later")
+            gradeChange_approval = input("Shall we begin(Yes or No): ")
+            while gradeChange_approval.upper() == "YES":
+                studentName_forChange = input("Please enter the student name:\n")
+                student_name_grade[studentName_forChange] = int(input("Please enter the correct grade:"))
+                print(student_name_grade)
+                gradeChange_approval = input("Do you want to change another grade? YES or NO \n")
 
     grade_index = []
-    for student, grade in student_name_grade:
-        if grade < 40:
+    for student, grade in student_name_grade.items():
+        if grade <= 40:
             grade_index.append("F")
 
         elif 40 <= grade < 50:
