@@ -48,8 +48,9 @@ if start_confirmation.upper() == "YES":
                 print(student_name_grade)
                 gradeChange_approval = input("Do you want to change another grade? YES or NO \n")
 
+#Calculate grade index for the score
     grade_index = []
-    for student, grade in student_name_grade.items():
+    for grade in student_name_grade.values():
         if grade <= 40:
             grade_index.append("F")
 
@@ -64,9 +65,6 @@ if start_confirmation.upper() == "YES":
         
         else:
             grade_index.append("A")
-    
-    else:
-        print("Then let's continue: ")
 
 elif start_confirmation.upper() == "NO":
     print("We will be here when you need us.")
@@ -74,12 +72,26 @@ elif start_confirmation.upper() == "NO":
 else:
     print("Please enter a valid prompt.")
 
-#Calculate grade for the score
+#Calculation of class average
+student_names = []
+student_grades = []
+total_grade = 0
+count = 0
+for student, grade in student_name_grade.items():
+    student_names.append(student)
+    student_grades.append(grade)
+    total_grade += grade
+    count += 1
 
-#Store student record in the list
-
-#Data entry and calculation of class average
+average_grade = total_grade / count
 
 #Display table of student data
+print(f"{'Student Data Table':^45}")
+print(f"{'STUDENT NAME':<15} {'GRADE':<15} {'GRADE INDEX':<15}")
+
+for name, grade, index in zip(student_names,student_grades,grade_index):
+    print(f"{name:<15} {grade:<15} {index:<15}")
+
  
 #Display class average
+print("Class average:",average_grade)
