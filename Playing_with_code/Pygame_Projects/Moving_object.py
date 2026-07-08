@@ -15,7 +15,6 @@ player_speed = 5
 
 pygame.display.set_caption("Yummy Chocolate Game")
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-print(type(screen))
 clock = pygame.time.Clock()
 background = pygame.transform.scale(pygame.image.load("background.jpg"),(SCREEN_WIDTH, SCREEN_HEIGHT))
 character = pygame.transform.scale(pygame.image.load("images-removebg-preview.png"),(CHARACTER_SIZE, CHARACTER_SIZE) )
