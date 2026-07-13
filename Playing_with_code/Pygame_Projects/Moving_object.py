@@ -43,7 +43,7 @@ while running:
     if player_x < 0:
          player_x = 0
 
-    #Right boundary (Screen widt minus character width)
+    #Right boundary (Screen width minus character width)
     if player_x > SCREEN_WIDTH - CHARACTER_SIZE:
          player_x = SCREEN_WIDTH - CHARACTER_SIZE
 
