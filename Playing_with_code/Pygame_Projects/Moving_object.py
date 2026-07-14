@@ -1,71 +1,94 @@
-import pygame
+import pygame  # Import the pygame library for game development
 
-#pygame setup
-pygame.init()
-SCREEN_WIDTH = 673
-SCREEN_HEIGHT = 673
-CHARACTER_SIZE = 80
+# --- Pygame Initialization and Setup ---
+pygame.init()  # Initialize all imported pygame modules
 
-#Character position variables
-player_x = 375
-player_y = 275
+# Screen dimensions
+SCREEN_WIDTH = 673   # Width of the game window in pixels
+SCREEN_HEIGHT = 673  # Height of the game window in pixels
 
-#Movement speed (pixels per frame)
-player_speed = 5
+# Player character size
+CHARACTER_SIZE = 80  # Width and height of the player sprite in pixels
 
-pygame.display.set_caption("Yummy Chocolate Game")
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-clock = pygame.time.Clock()
-background = pygame.transform.scale(pygame.image.load("background.jpg"),(SCREEN_WIDTH, SCREEN_HEIGHT))
-character = pygame.transform.scale(pygame.image.load("images-removebg-preview.png"),(CHARACTER_SIZE, CHARACTER_SIZE) )
+# --- Player Position Variables ---
+player_x = 375  # Initial X position of the player (center-ish)
+player_y = 275  # Initial Y position of the player
+
+# Movement speed configuration
+player_speed = 5  # How many pixels the player moves per frame
+
+# --- Window and Asset Loading ---
+pygame.display.set_caption("Yummy Chocolate Game")  # Set the title of the game window
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))  # Create the game window surface
+clock = pygame.time.Clock()  # Create a Clock object to control the frame rate
+
+# Load and scale background image to fit screen
+background = pygame.transform.scale(
+    pygame.image.load("background.jpg"), 
+    (SCREEN_WIDTH, SCREEN_HEIGHT)
+)
+
+# Load and scale player character image
+character = pygame.transform.scale(
+    pygame.image.load("images-removebg-preview.png"), 
+    (CHARACTER_SIZE, CHARACTER_SIZE)
+)
+
+# Main game loop control variable
 running = True
 
+# --- Main Game Loop ---
 while running:
-    #poll for events
-    #pygame.QUIT #event means the user clicked X to close your window
-    for event in pygame.event.get():
-         if event.type == pygame.QUIT:
-             running = False
-            
-    keys = pygame.key.get_pressed()
+    # --- Event Polling ---
+    for event in pygame.event.get():  # Iterate over all events in the queue
+        if event.type == pygame.QUIT:  # Check if the user clicked the close button (X)
+            running = False  # Stop the game loop to close the window
+
+    # --- Input Handling (Movement) ---
+    keys = pygame.key.get_pressed()  # Get the current state of all keyboard keys
+
+    # Move player LEFT
     if keys[pygame.K_LEFT]:
-         player_x -= player_speed
+        player_x -= player_speed  # Decrease X position
+
+    # Move player RIGHT
     if keys[pygame.K_RIGHT]:
-         player_x += player_speed
+        player_x += player_speed  # Increase X position
+
+    # Move player UP
     if keys[pygame.K_UP]:
-         player_y -= player_speed
+        player_y -= player_speed  # Decrease Y position (screen coordinates go down)
+
+    # Move player DOWN
     if keys[pygame.K_DOWN]:
-         player_y += player_speed
+        player_y += player_speed  # Increase Y position
 
-
-    #Apply Boundary Restrictions (The Clamping)
-    #Left boundary
+    # --- Boundary Checks (Clamping) ---
+    # Prevent player from going off the left edge
     if player_x < 0:
-         player_x = 0
+        player_x = 0
 
-    #Right boundary (Screen width minus character width)
+    # Prevent player from going off the right edge (screen width minus character width)
     if player_x > SCREEN_WIDTH - CHARACTER_SIZE:
-         player_x = SCREEN_WIDTH - CHARACTER_SIZE
+        player_x = SCREEN_WIDTH - CHARACTER_SIZE
 
-    #Top boundary
+    # Prevent player from going off the top edge
     if player_y < 0:
-         player_y = 0
+        player_y = 0
 
-    #Bottom boundary (Screen height minus character height)
+    # Prevent player from going off the bottom edge (screen height minus character height)
     if player_y > SCREEN_HEIGHT - CHARACTER_SIZE:
-         player_y = SCREEN_HEIGHT - CHARACTER_SIZE
+        player_y = SCREEN_HEIGHT - CHARACTER_SIZE
 
-    #fill the screen with a color to wipe away anything from last frame
-    screen.blit(background,(0,0))
-    screen.blit(character, (player_x, player_y))
+    # --- Drawing / Rendering ---
+    screen.blit(background, (0, 0))  # Draw the background image at the top-left corner (0,0)
+    screen.blit(character, (player_x, player_y))  # Draw the player character at current position
 
+    # --- Display Update ---
+    pygame.display.flip()  # Update the entire display surface to show the new frame
 
+    # --- Frame Rate Control ---
+    clock.tick(60)  # Limit the game to 60 frames per second (FPS)
 
-    #RENDER YOUR GAME HERE
-
-    #flip() the display to put your work on screen
-    pygame.display.flip()
-
-    clock.tick(60)   #limits FPS to 60
-
-pygame.quit()
+# --- Cleanup ---
+pygame.quit()  # Uninitialize all pygame modules and exit cleanly
